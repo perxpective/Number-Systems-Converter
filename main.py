@@ -55,7 +55,7 @@ elif option == '4':
 
     elif '0x' in string:
         string = int(string, 2)
-        output = bytearray.fromhex(string).decode()
+        output = bytearray.fromhex(string).decode('utf-8')
 
     elif '0o' in string:
         output.replace("0o","")
