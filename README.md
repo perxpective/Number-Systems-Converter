@@ -66,4 +66,51 @@ elif option == '3':
         output += char_num[2:]
 ```
 
-If user input is 3, the string will be encoded into octdecimals. Again, replace the first function with the `oct()` function to convert the character's ASCII value into octodecimals in `char_num`
+If user input is 3, the string will be encoded into octdecimals. Again, replace the first function with the `oct()` function to convert the character's ASCII value into octodecimals into `char_num`
+
+## Decrypting Number Systems to Text
+```
+elif option == '4':
+    print('- put 0x if hexadecimal')
+    print('- put 0b if binary')
+    print('- put 0o if octodecimal')
+    string = input('enter string to decipher: ')
+    while not ('0x' in string or '0b' in string or '0o' in string):
+        print('oops! something went wrong.')
+        string = input('enter string to decipher[minimum 8 chars]: ')
+```
+Users can decode their encrypted messages by selecting the option 4. In order to determine the values of the number systems, number value prefixes must be inputted. This is because if prefixes are not added, this will give an invalid syntax. We want to convert the raw encoded value (bin, hex, oct) integers into denary values. This will also not work if the series of values are in string. Otherwise, the prompt will be iterated in a `while` loop until the user can give a required input.
+
+> Note: `0b`: binary;
+`0x`: hexadecimal;
+`0o`: octodecimal;
+
+### Decoding Encrypted Values
+```
+if '0b' in string:
+        string = string.replace("0b", "")
+        bin_values = string.split()
+        output = ""
+        for bin_value in bin_values:
+            integer = int(bin_value, 2)
+            char = chr(integer)
+            output += char
+            
+
+
+    elif '0x' in string:
+        string = int(string, 2)
+        output = bytearray.fromhex(string).decode()
+
+    elif '0o' in string:
+        output.replace("0o","")
+        output += chr(int(string[0:4],8))
+        for char in range(1,len(string)//3+1):
+            output += chr(int(string[char*3+1:char*3+4], 8))
+
+print('value: ', output)
+```
+
+Using the `bytearray.fromhex(string).decode()` function, we can decode hexadecimals into strings.
+
+Other values can be decoded using the `for` loop.
