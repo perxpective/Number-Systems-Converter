@@ -2,10 +2,9 @@
 Convert your string text into hexadecimals, octodecimals or binary.
 
 ### Initialising Variables and Modules
-To start, I import the modules. If the program is run on repl.it, the `replit` module will allow the terminal to be clear when moving from one "menu" to another. Note that the replit module will not work when run externally on other IDE platforms. I will also initiate the `output` variable which will determine our converted output after various user inputs.
+To start, I import the modules. I will also initiate the `output` variable which will determine our converted output after various user inputs.
 
 ``` python
-import replit
 import binascii
 output = ''
 ```
@@ -17,7 +16,7 @@ After initialising my variables and modules, I can now display a menu. The user 
 print('[1] convert to binary')
 print('[2] covnert to hexadecimals')
 print('[3] convert to octodecimals')
-print('[4] decode to text')
+print('[4] decode to hexadecimals to text')
 option = input('select option: ')
 ```
 
@@ -69,44 +68,15 @@ elif option == '3':
 If user input is 3, the string will be encoded into octdecimals. Again, replace the first function with the `oct()` function to convert the character's ASCII value into octodecimals into `char_num`
 
 ## Decrypting Number Systems to Text
-``` python
-elif option == '4':
-    print('- put 0x if hexadecimal')
-    print('- put 0b if binary')
-    print('- put 0o if octodecimal')
-    string = input('enter string to decipher: ')
-    while not ('0x' in string or '0b' in string or '0o' in string):
-        print('oops! something went wrong.')
-        string = input('enter string to decipher[minimum 8 chars]: ')
-```
-Users can decode their encrypted messages by selecting the option 4. In order to determine the values of the number systems, number value prefixes must be inputted. This is because if prefixes are not added, this will give an invalid syntax. We want to convert the raw encoded value (bin, hex, oct) integers into denary values. This will also not work if the series of values are in string. Otherwise, the prompt will be iterated in a `while` loop until the user can give a required input.
 
-> Note: `0b`: binary;
-`0x`: hexadecimal;
-`0o`: octodecimal;
+Users can decode their encrypted messages by selecting the option 4. In order to determine the values of the number systems, number value prefixes must be inputted. This is because if prefixes are not added, this will give an invalid syntax. We want to convert the raw encoded hexadecimal values into denary values. This will also not work if the series of values are in string. Otherwise, the prompt will be iterated in a `while` loop until the user can give a required input.
 
 ### Decoding Encrypted Values
 ``` python
-if '0b' in string:
-        string = string.replace("0b", "")
-        bin_values = string.split()
-        output = ""
-        for bin_value in bin_values:
-            integer = int(bin_value, 2)
-            char = chr(integer)
-            output += char
-            
-
-
-    elif '0x' in string:
-        string = int(string, 2)
-        output = bytearray.fromhex(string).decode('utf-8')
-
-    elif '0o' in string:
-        output.replace("0o","")
-        output += chr(int(string[0:4],8))
-        for char in range(1,len(string)//3+1):
-            output += chr(int(string[char*3+1:char*3+4], 8))
+    
+    elif option == '4':
+      string = input('enter string to decipher: ')
+      output = binascii.unhexlify(string).decode()
 
 print('value: ', output)
 ```
